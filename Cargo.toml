@@ -1,0 +1,5 @@
+[package]
+
+name = "word-game"
+version = "0.0.1"
+authors = ["Alex <busarovalex@yandex.ru>"]
