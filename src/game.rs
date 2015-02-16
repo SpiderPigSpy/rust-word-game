@@ -1,3 +1,5 @@
+use std::fmt::{Display, Error, Formatter};
+
 pub struct Game {
     intended_word: String,
     guessed: Vec<GuessedRes>,
@@ -16,8 +18,8 @@ impl Game {
         &self.intended_word[]
     }
 
-    pub fn current_progress(&self) -> Vec<Guessed> {
-        self.guessed.iter().map(|x| x.to_enum()).collect()
+    pub fn current_progress(&self) -> CurrentProgress {
+        CurrentProgress { vec : self.guessed.iter().map(|x| x.to_enum()).collect() }
     }
 
     pub fn letters_left(&self) -> usize {
@@ -60,7 +62,27 @@ impl GuessedRes {
     }
 }
 
+#[derive(Debug)]
 pub enum Guessed {
     Yes(char),
     No,
+}
+
+#[derive(Debug)]
+pub struct CurrentProgress {
+    vec : Vec<Guessed>,
+}
+
+impl Display for CurrentProgress {
+    fn fmt(&self, f : &mut Formatter) -> Result<(), Error> {
+        let mut result = String::with_capacity(self.vec.len() * 2);
+        for guess in self.vec.iter() {
+            match *guess {
+                Guessed::Yes(ch) => result.push(ch),
+                Guessed::No => result.push('_'),
+            }
+            result.push(' ');
+        }
+        write!(f, "{}", result.as_slice())
+    }
 }
