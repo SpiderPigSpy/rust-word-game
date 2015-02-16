@@ -55,22 +55,25 @@ impl GuessedRes {
 
     fn to_enum(&self) -> Guessed {
         if self.is_guessed {
-            Guessed::Yes(self.ch)
+            Some(self.ch)
         } else {
-            Guessed::No
+            None
         }
     }
 }
 
-#[derive(Debug)]
-pub enum Guessed {
-    Yes(char),
-    No,
-}
+pub type Guessed = Option<char>;
 
 #[derive(Debug)]
 pub struct CurrentProgress {
     vec : Vec<Guessed>,
+}
+
+impl CurrentProgress {
+    #[allow(dead_code)]
+    pub fn get_guessed_slice(&self) -> &[Guessed] {
+        &self.vec[]
+    }
 }
 
 impl Display for CurrentProgress {
@@ -78,8 +81,8 @@ impl Display for CurrentProgress {
         let mut result = String::with_capacity(self.vec.len() * 2);
         for guess in self.vec.iter() {
             match *guess {
-                Guessed::Yes(ch) => result.push(ch),
-                Guessed::No => result.push('_'),
+                Some(ch) => result.push(ch),
+                None => result.push('_'),
             }
             result.push(' ');
         }
