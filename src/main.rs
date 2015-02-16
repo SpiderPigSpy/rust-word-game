@@ -8,12 +8,14 @@ use game::{Game};
 use std::old_io;
 use std::old_io::BufferedReader;
 use std::old_io::File;
+use std::rand;
 
 mod game;
 
 fn main() {
     println!("Guess the word game");
-    let mut game = Game::new(get_words());
+    let words = get_words();
+    let mut game = Game::new(words.get(rand::random() % words.len()).unwrap().clone());
     game_loop(&mut game);
     println!("\n'{}' - You won!", game.intended_word());
 }
