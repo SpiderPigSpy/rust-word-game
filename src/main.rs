@@ -28,12 +28,13 @@ fn game_loop(game : &mut Game) {
 }
 
 fn get_words() -> Vec<String> {
-    vec![
-        "rust".to_string(),
-        "is".to_string(),
-        "the".to_string(),
-        "best".to_string(),
-        "programming".to_string(),
-        "language".to_string(),
-    ]
+    let words = vec![
+        "rust",
+        "is",
+        "the",
+        "best",
+        "programming",
+        "language",
+    ];
+    words.iter().map(|x| x.to_string()).collect()
 }
