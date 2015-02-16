@@ -12,7 +12,7 @@ fn main() {
     println!("Guess the word game");
     let mut game = Game::new(get_words());
     game_loop(&mut game);
-    println!("'{}' - You won!", game.intended_word());
+    println!("\n'{}' - You won!", game.intended_word());
 }
 
 fn game_loop(game : &mut Game) {
