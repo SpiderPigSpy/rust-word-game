@@ -8,8 +8,7 @@ mod game;
 
 fn main() {
     println!("Guess the word game");
-    let intended_word = get_word();
-    let mut game = Game::new(intended_word);
+    let mut game = Game::new(get_words());
     game_loop(&mut game);
     println!("'{}' - You won!", game.intended_word());
 }
@@ -26,6 +25,13 @@ fn game_loop(game : &mut Game) {
     }
 }
 
-fn get_word() -> String {
-    "abcdefghijklmnopqrstuvwxyz".to_string()
+fn get_words() -> Vec<String> {
+    vec![
+        "rust".to_string(),
+        "is".to_string(),
+        "the".to_string(),
+        "best".to_string(),
+        "programming".to_string(),
+        "language".to_string(),
+    ]
 }

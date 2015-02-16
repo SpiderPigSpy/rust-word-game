@@ -1,14 +1,18 @@
 use std::fmt::{Display, Error, Formatter};
+use std::rand;
 
 pub struct Game {
+    words: Vec<String>,
     intended_word: String,
     guessed: Vec<GuessedRes>,
 }
 
 impl Game {
-    pub fn new(intended_word: String) -> Game {
+    pub fn new(words: Vec<String>) -> Game {
+        let intended_word = words.get(rand::random() % words.len()).unwrap().clone();
         let guessed = intended_word.chars().map(|ch| GuessedRes::new(ch, false)).collect();
         Game {
+            words: words,
             intended_word: intended_word,
             guessed : guessed,
         }
