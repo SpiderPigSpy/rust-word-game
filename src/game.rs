@@ -3,13 +3,13 @@ use std::rand;
 
 pub struct Game {
     intended_word: String,
-    guessed: Vec<GuessedRes>,
+    guessed: Vec<CharState>,
 }
 
 impl Game {
     pub fn new(words: Vec<String>) -> Game {
         let intended_word = words.get(rand::random() % words.len()).unwrap().clone();
-        let guessed = intended_word.chars().map(|ch| GuessedRes::new(ch, false)).collect();
+        let guessed = intended_word.chars().map(|ch| CharState::new(ch, false)).collect();
         Game {
             intended_word: intended_word,
             guessed : guessed,
@@ -41,15 +41,15 @@ impl Game {
     }
 }
 
-struct GuessedRes {
+struct CharState {
     ch : char,
     is_guessed : bool,
 }
 
-impl GuessedRes {
+impl CharState {
 
-    fn new(ch : char, is_guessed : bool) -> GuessedRes {
-        GuessedRes {
+    fn new(ch : char, is_guessed : bool) -> CharState {
+        CharState {
             ch : ch,
             is_guessed : is_guessed,
         }
