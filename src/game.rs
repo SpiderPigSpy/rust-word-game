@@ -13,7 +13,7 @@ impl Game {
     }
 
     pub fn intended_word<'r>(&'r self) -> &'r str {
-        self.intended_word.as_slice()
+        &self.intended_word[]
     }
 
     pub fn current_progress(&self) -> Vec<Guessed> {

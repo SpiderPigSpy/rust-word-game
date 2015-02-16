@@ -1,9 +1,9 @@
-#![allow(unstable)]
+#![feature(io)]
 
 use game::{Game, Guessed};
 
-use std::io;
-use std::fmt::{Show, Error, Formatter};
+use std::old_io;
+use std::fmt::{Debug, Error, Formatter};
 
 mod game;
 
@@ -18,8 +18,8 @@ fn main() {
 fn game_loop(game : &mut Game) {
     loop {
         print!(" {:?}, {} letters left, ", game.current_progress(), game.letters_left());
-        let input = io::stdin().read_line().ok().expect("Failed to read line");
-        let input_trimed = input.as_slice().trim();
+        let input = old_io::stdin().read_line().ok().expect("Failed to read line");
+        let input_trimed = &input[].trim();
         game.guess(input_trimed);
         if game.letters_left() == 0 {
             break;
@@ -31,7 +31,7 @@ fn get_word() -> String {
     "abcdefghijklmnopqrstuvwxyz".to_string()
 }
 
-impl Show for Vec<Guessed> {
+impl Debug for Vec<Guessed> {
     fn fmt(&self, f : &mut Formatter) -> Result<(), Error> {
         let mut result = String::with_capacity(self.len() * 2);
         for guess in self.iter() {
