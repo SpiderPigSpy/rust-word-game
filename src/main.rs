@@ -1,4 +1,6 @@
 #![feature(io)]
+#![feature(rand)]
+#![allow(deprecated)]
 
 use game::{Game};
 

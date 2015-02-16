@@ -2,7 +2,6 @@ use std::fmt::{Display, Error, Formatter};
 use std::rand;
 
 pub struct Game {
-    words: Vec<String>,
     intended_word: String,
     guessed: Vec<GuessedRes>,
 }
@@ -12,7 +11,6 @@ impl Game {
         let intended_word = words.get(rand::random() % words.len()).unwrap().clone();
         let guessed = intended_word.chars().map(|ch| GuessedRes::new(ch, false)).collect();
         Game {
-            words: words,
             intended_word: intended_word,
             guessed : guessed,
         }
@@ -37,7 +35,7 @@ impl Game {
     }
 
     fn guess_char(&mut self, ch : char) {
-        for g_res in self.guessed.iter_mut().filter(|x| !x.is_guessed && x.ch==ch) {
+        for g_res in self.guessed.iter_mut().filter(|x| x.ch==ch) {
             g_res.is_guessed = true;
         }
     }
@@ -71,13 +69,6 @@ pub type Guessed = Option<char>;
 #[derive(Debug)]
 pub struct CurrentProgress {
     vec : Vec<Guessed>,
-}
-
-impl CurrentProgress {
-    #[allow(dead_code)]
-    pub fn get_guessed_slice(&self) -> &[Guessed] {
-        &self.vec[]
-    }
 }
 
 impl Display for CurrentProgress {
