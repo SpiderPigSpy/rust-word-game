@@ -1,10 +1,13 @@
 #![feature(io)]
 #![feature(rand)]
+#![feature(path)]
 #![allow(deprecated)]
 
 use game::{Game};
 
 use std::old_io;
+use std::old_io::BufferedReader;
+use std::old_io::File;
 
 mod game;
 
@@ -28,13 +31,7 @@ fn game_loop(game : &mut Game) {
 }
 
 fn get_words() -> Vec<String> {
-    let words = vec![
-        "rust",
-        "is",
-        "the",
-        "best",
-        "programming",
-        "language",
-    ];
-    words.iter().map(|x| x.to_string()).collect()
+    let path = Path::new("words.txt");
+    let mut file = BufferedReader::new(File::open(&path));
+    file.lines().map(|x| x.unwrap().trim().to_string()).collect()
 }
