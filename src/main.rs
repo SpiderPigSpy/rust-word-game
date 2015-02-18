@@ -2,6 +2,7 @@
 #![feature(rand)]
 #![feature(path)]
 #![allow(deprecated)]
+extern crate game;
 
 use game::{Game};
 
@@ -9,8 +10,6 @@ use std::old_io;
 use std::old_io::BufferedReader;
 use std::old_io::File;
 use std::rand;
-
-mod game;
 
 fn main() {
     println!("Guess the word game");
